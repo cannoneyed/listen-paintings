@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/listen-paintings/static/css/main.af56c342.chunk.css",
+    "main.js": "/listen-paintings/static/js/main.9149f5cb.chunk.js",
+    "main.js.map": "/listen-paintings/static/js/main.9149f5cb.chunk.js.map",
+    "runtime-main.js": "/listen-paintings/static/js/runtime-main.79aed63b.js",
+    "runtime-main.js.map": "/listen-paintings/static/js/runtime-main.79aed63b.js.map",
+    "static/js/2.9534171f.chunk.js": "/listen-paintings/static/js/2.9534171f.chunk.js",
+    "static/js/2.9534171f.chunk.js.map": "/listen-paintings/static/js/2.9534171f.chunk.js.map",
+    "static/js/3.8984aae6.chunk.js": "/listen-paintings/static/js/3.8984aae6.chunk.js",
+    "static/js/3.8984aae6.chunk.js.map": "/listen-paintings/static/js/3.8984aae6.chunk.js.map",
+    "index.html": "/listen-paintings/index.html",
+    "static/css/main.af56c342.chunk.css.map": "/listen-paintings/static/css/main.af56c342.chunk.css.map",
+    "static/js/2.9534171f.chunk.js.LICENSE.txt": "/listen-paintings/static/js/2.9534171f.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.79aed63b.js",
+    "static/js/2.9534171f.chunk.js",
+    "static/css/main.af56c342.chunk.css",
+    "static/js/main.9149f5cb.chunk.js"
+  ]
+}
