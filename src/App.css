@@ -45,6 +45,9 @@
 }
 
 img.painting {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
   object-fit: cover;
@@ -76,6 +79,18 @@ img.painting {
 .artist {
   color: coral;
   font-size: 18px;
+}
+
+.sound-icon {
+  position: absolute;
+  z-index: 999;
+  font-size: 48px;
+  padding: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
 
 @keyframes custom-fadein {

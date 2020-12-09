@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { autorun } from "mobx";
+import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 
 import "./App.css";
 
@@ -18,7 +19,12 @@ function App() {
   const [isOverlayShown, setIsOverlayShown] = useState(true);
   useEffect(() => {
     const mouseMove = (e) => {
-      audio.setSoundPosition(e.pageX, e.pageY);
+      const windowInnerWidth = window.innerWidth;
+      const windowInnerHeight = window.innerHeight;
+      audio.setSoundPosition(
+        e.pageX / windowInnerWidth,
+        e.pageY / windowInnerHeight
+      );
     };
     window.addEventListener("mousemove", mouseMove);
 
@@ -48,7 +54,32 @@ function App() {
             <div className="state loading">Loading...</div>
           )}
         </div>
+
+        {!isOverlayShown
+          ? painting.sounds.map((sound) => {
+              const [xPercent, yPercent] = sound.position;
+              const soundIconStyle = {
+                marginLeft: `${-60 / 2}px`,
+                marginTop: `${-60 / 2}px`,
+                left: `${xPercent * 100}%`,
+                top: `${yPercent * 100}%`,
+                backgroundColor: sound.color,
+              };
+              return (
+                <div
+                  key={sound.file}
+                  id={sound.file}
+                  className="sound-icon"
+                  style={soundIconStyle}
+                >
+                  <VolumeUpIcon style={{ fontSize: 48 }} />
+                </div>
+              );
+            })
+          : null}
+
         <img src={imageUrl} className="painting" alt="" />
+
         <div className="image-description">
           <span className="title">{painting.name}</span>
           <span className="artist">{painting.artist}</span>

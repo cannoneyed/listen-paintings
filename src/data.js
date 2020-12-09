@@ -41,12 +41,21 @@ export const paintingsData = [
     sounds: [
       {
         file: "foghorn.mp3",
+        position: [0.1, 0.15],
+        radius: 0.3,
+        color: "coral",
       },
       {
         file: "gulls.mp3",
+        position: [0.8, 0.2],
+        radius: 0.5,
+        color: "coral",
       },
       {
         file: "harborwaves.mp3",
+        position: [0.5, 0.8],
+        radius: 0.7,
+        color: "coral",
       },
     ],
   },
