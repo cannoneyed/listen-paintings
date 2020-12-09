@@ -1,32 +1,63 @@
 import * as Tone from "tone";
+import AnimatedValue from "animated-value";
 import { makeObservable, observable, computed } from "mobx";
 
 const DEFAULT_DECIBELS = -12;
 
-class AudioPlayer {
+class Engine {
+  painting = null;
   players = new Map();
   loadedSounds = new Map();
+
   sceneSounds = [];
+  soundSourceParams = new Map();
+
+  overlayFade = 1;
+  isOverlayVisible = true;
 
   get isLoaded() {
     return [...this.loadedSounds.values()].every((v) => v == true);
   }
 
-  constructor(value) {
+  constructor() {
     makeObservable(this, {
+      painting: observable,
       loadedSounds: observable,
+      soundSourceParams: observable,
+      overlayFade: observable,
+      isOverlayVisible: observable,
       isLoaded: computed,
     });
-    this.value = value;
+
+    this.setMouseListeners();
   }
 
-  setSounds(key, sounds) {
+  setMouseListeners() {
+    const mouseMove = (e) => {
+      const windowInnerWidth = window.innerWidth;
+      const windowInnerHeight = window.innerHeight;
+      this.setSoundPosition(
+        e.pageX / windowInnerWidth,
+        e.pageY / windowInnerHeight
+      );
+    };
+    window.addEventListener("mousemove", mouseMove, false);
+  }
+
+  getSoundSourceParams(file) {
+    return this.soundSourceParams.get(file);
+  }
+
+  setPainting(painting) {
+    this.painting = painting;
+    const { key, sounds } = painting;
+
     sounds.forEach((entry) => {
       const { file } = entry;
       if (this.players.get(file)) {
         return;
       }
-      const url = `${key}/${file}`;
+      const url = `${process.env.PUBLIC_URL}/${key}/${file}`;
       const player = new Tone.Player(url, () => {
         console.log("loaded", file);
         this.loadedSounds.set(file, true);
@@ -46,9 +77,24 @@ class AudioPlayer {
       const player = this.players.get(sound.file);
       if (player && player.state !== "started") {
         player.start();
-        this.setSoundPosition(0, 0);
       }
     });
+  }
+
+  async fadeOutOverlay() {
+    if (this.animatedOverlay) return;
+
+    this.animatedOverlay = new AnimatedValue({
+      start: 1,
+      end: 0,
+    });
+
+    await this.animatedOverlay.play(500, () => {
+      this.overlayFade = this.animatedOverlay.value();
+    });
+
+    this.isOverlayVisible = false;
+    this.animatedOverlay = null;
   }
 
   setSoundPosition(xPercent, yPercent) {
@@ -64,17 +110,8 @@ class AudioPlayer {
         const gain = 1 - distancePercent;
         const decibels = Tone.gainToDb(gain);
         const player = this.players.get(sound.file);
+        this.soundSourceParams.set(sound.file, { gain });
         if (player) {
-          const MIN_OPACITY = 0.5;
-          const MIN_SIZE = 40;
-          const MAX_SIZE = 80;
-          const opacity = gain * (1 - MIN_OPACITY) + MIN_OPACITY;
-          const size = gain * (MAX_SIZE - MIN_SIZE) + MIN_SIZE;
-          element.style.opacity = opacity;
-          element.style.width = `${size}px`;
-          element.style.height = `${size}px`;
-          element.style.marginLeft = `${-size / 2}px`;
-          element.style.marginTop = `${-size / 2}px`;
           player.volume.value = decibels + DEFAULT_DECIBELS;
         }
       }
@@ -82,4 +119,4 @@ class AudioPlayer {
   }
 }
 
-export default new AudioPlayer();
+export default new Engine();

@@ -2504,6 +2504,13 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
+animated-value@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/animated-value/-/animated-value-0.2.4.tgz#32f1e104f6fd41a2b28da4eb0a0b073247022280"
+  integrity sha512-Kz26XFW2zu93F56J4dF7kJB9t/K4+6FSmaNfcKXmgzFSxKYbOZqGBq+qZ/bnFTeFXs41j0K6s0sC2AdIyN23vw==
+  dependencies:
+    bezier-easing "^2.1.0"
+
 ansi-colors@^3.0.0:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
@@ -3011,6 +3018,11 @@ bcrypt-pbkdf@^1.0.0:
   integrity sha1-pDAdOJtqQ/m2f/PKEaP2Y342Dp4=
   dependencies:
     tweetnacl "^0.14.3"
+
+bezier-easing@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/bezier-easing/-/bezier-easing-2.1.0.tgz#c04dfe8b926d6ecaca1813d69ff179b7c2025d86"
+  integrity sha1-wE3+i5JtbsrKGBPWn/F5t8ICXYY=
 
 bfj@^7.0.2:
   version "7.0.2"
