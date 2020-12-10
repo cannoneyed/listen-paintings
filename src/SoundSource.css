@@ -1,0 +1,20 @@
+.sound-icon {
+  position: absolute;
+  z-index: 999;
+  font-size: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.ripple {
+  position: absolute;
+  z-index: 998;
+
+  border-radius: 50%;
+  background: cornflowerblue;
+
+  mix-blend-mode: soft-light;
+}

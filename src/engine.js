@@ -6,11 +6,13 @@ const DEFAULT_DECIBELS = -12;
 
 class Engine {
   painting = null;
-  players = new Map();
-  loadedSounds = new Map();
 
-  sceneSounds = [];
-  soundSourceParams = new Map();
+  loadedSounds = new Map();
+  players = new Map();
+  meters = new Map();
+
+  soundSourceLevels = new Map();
+  soundSourceRipples = new Map();
 
   overlayFade = 1;
   isOverlayVisible = true;
@@ -23,13 +25,18 @@ class Engine {
     makeObservable(this, {
       painting: observable,
       loadedSounds: observable,
-      soundSourceParams: observable,
+      soundSourceLevels: observable,
+      soundSourceRipples: observable,
       overlayFade: observable,
       isOverlayVisible: observable,
       isLoaded: computed,
     });
 
     this.setMouseListeners();
+
+    requestAnimationFrame(() => {
+      this.animateSoundSources();
+    });
   }
 
   setMouseListeners() {
@@ -42,10 +49,6 @@ class Engine {
       );
     };
     window.addEventListener("mousemove", mouseMove, false);
-  }
-
-  getSoundSourceParams(file) {
-    return this.soundSourceParams.get(file);
   }
 
   setPainting(painting) {
@@ -62,18 +65,34 @@ class Engine {
         console.log("loaded", file);
         this.loadedSounds.set(file, true);
       }).toDestination();
+
+      const meter = new Tone.Meter(0.8);
+      player.connect(meter);
+      this.meters.set(file, meter);
+
       this.players.set(file, player);
       player.loop = true;
       player.volume.value = DEFAULT_DECIBELS;
 
       this.loadedSounds.set(file, false);
     });
-
-    this.sceneSounds = sounds;
   }
 
-  playSounds() {
-    this.sceneSounds.forEach((sound) => {
+  animateSoundSources = () => {
+    for (const entry of this.meters.entries()) {
+      const [file, meter] = entry;
+      const gain = Tone.dbToGain(meter.getValue());
+      this.soundSourceRipples.set(file, gain);
+    }
+
+    requestAnimationFrame(() => {
+      this.animateSoundSources();
+    });
+  };
+
+  async playSounds() {
+    await Tone.start();
+    this.painting.sounds.forEach((sound) => {
       const player = this.players.get(sound.file);
       if (player && player.state !== "started") {
         player.start();
@@ -98,7 +117,7 @@ class Engine {
   }
 
   setSoundPosition(xPercent, yPercent) {
-    this.sceneSounds.forEach((sound) => {
+    this.painting.sounds.forEach((sound) => {
       const element = document.getElementById(sound.file);
       const [soundXPercent, soundYPercent] = sound.position;
       const { radius } = sound;
@@ -110,7 +129,7 @@ class Engine {
         const gain = 1 - distancePercent;
         const decibels = Tone.gainToDb(gain);
         const player = this.players.get(sound.file);
-        this.soundSourceParams.set(sound.file, { gain });
+        this.soundSourceLevels.set(sound.file, gain);
         if (player) {
           player.volume.value = decibels + DEFAULT_DECIBELS;
         }

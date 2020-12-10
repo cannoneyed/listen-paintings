@@ -46,15 +46,3 @@ img.painting {
   color: coral;
   font-size: 18px;
 }
-
-.sound-icon {
-  position: absolute;
-  z-index: 999;
-  font-size: 48px;
-  padding: 20px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
