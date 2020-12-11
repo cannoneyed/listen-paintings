@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/listen-paintings/static/css/main.b342c597.chunk.css",
-    "main.js": "/listen-paintings/static/js/main.e3cc845c.chunk.js",
-    "main.js.map": "/listen-paintings/static/js/main.e3cc845c.chunk.js.map",
+    "main.js": "/listen-paintings/static/js/main.d4edb11f.chunk.js",
+    "main.js.map": "/listen-paintings/static/js/main.d4edb11f.chunk.js.map",
     "runtime-main.js": "/listen-paintings/static/js/runtime-main.50f739a4.js",
     "runtime-main.js.map": "/listen-paintings/static/js/runtime-main.50f739a4.js.map",
-    "static/js/2.4162007b.chunk.js": "/listen-paintings/static/js/2.4162007b.chunk.js",
-    "static/js/2.4162007b.chunk.js.map": "/listen-paintings/static/js/2.4162007b.chunk.js.map",
+    "static/js/2.785a4b69.chunk.js": "/listen-paintings/static/js/2.785a4b69.chunk.js",
+    "static/js/2.785a4b69.chunk.js.map": "/listen-paintings/static/js/2.785a4b69.chunk.js.map",
     "index.html": "/listen-paintings/index.html",
     "static/css/main.b342c597.chunk.css.map": "/listen-paintings/static/css/main.b342c597.chunk.css.map",
-    "static/js/2.4162007b.chunk.js.LICENSE.txt": "/listen-paintings/static/js/2.4162007b.chunk.js.LICENSE.txt"
+    "static/js/2.785a4b69.chunk.js.LICENSE.txt": "/listen-paintings/static/js/2.785a4b69.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.50f739a4.js",
-    "static/js/2.4162007b.chunk.js",
+    "static/js/2.785a4b69.chunk.js",
     "static/css/main.b342c597.chunk.css",
-    "static/js/main.e3cc845c.chunk.js"
+    "static/js/main.d4edb11f.chunk.js"
   ]
 }
