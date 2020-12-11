@@ -10,7 +10,7 @@ import engine from "./engine";
 
 function App() {
   const { painting } = engine;
-  const imageUrl = `${process.env.PUBLIC_URL}/${painting.key}/image.jpg`;
+  const imageUrl = `${process.env.PUBLIC_URL}/paintings/${painting.key}/image.jpg`;
 
   return (
     <div className="App">

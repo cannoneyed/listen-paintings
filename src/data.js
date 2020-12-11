@@ -75,4 +75,32 @@ export const paintingsData = [
       },
     ],
   },
+  {
+    name: "Street Light",
+    artist: "Giacomo Balla",
+    key: "balla",
+    width: 1314,
+    height: 2000,
+    sounds: [
+      {
+        file: "cafe.mp3",
+        position: [0.5, 0.8],
+        radius: 0.7,
+        color: "coral",
+      },
+      {
+        file: "electric_short.mp3",
+        position: [0.3, 0.3],
+        radius: 0.2,
+        color: "coral",
+      },
+      {
+        file: "electricity.mp3",
+        position: [0.6, 0.2],
+        radius: 0.4,
+        color: "coral",
+        volume: -6,
+      },
+    ],
+  },
 ];

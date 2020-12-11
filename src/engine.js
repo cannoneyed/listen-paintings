@@ -60,7 +60,7 @@ class Engine {
       if (this.players.get(file)) {
         return;
       }
-      const url = `${process.env.PUBLIC_URL}/${key}/${file}`;
+      const url = `${process.env.PUBLIC_URL}/paintings/${key}/${file}`;
 
       const player = new Tone.Player(url, () => {
         console.log("loaded", file);
