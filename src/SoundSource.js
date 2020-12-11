@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
 import { autorun } from "mobx";
-import { observer } from "mobx-react-lite";
 import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 
 import "./SoundSource.css";
@@ -28,7 +27,7 @@ function SoundSource({ sound }) {
       const gain = engine.soundSourceLevels.get(sound.file);
       const rippleGain = engine.soundSourceRipples.get(sound.file);
 
-      if (gain == undefined) return;
+      if (gain === undefined) return;
 
       const soundSource = soundSourceRef.current;
       const ripple = rippleRef.current;
@@ -56,7 +55,7 @@ function SoundSource({ sound }) {
     return () => {
       dispose();
     };
-  }, []);
+  }, [sound]);
 
   const soundIconStyle = {
     width: `${DEFAULT_SIZE}px`,

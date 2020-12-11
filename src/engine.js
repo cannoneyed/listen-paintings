@@ -18,7 +18,7 @@ class Engine {
   isOverlayVisible = true;
 
   get isLoaded() {
-    return [...this.loadedSounds.values()].every((v) => v == true);
+    return [...this.loadedSounds.values()].every((v) => v === true);
   }
 
   constructor() {

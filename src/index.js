@@ -5,7 +5,7 @@ import { configure } from "mobx";
 import "./index.css";
 import App from "./App";
 
-import { paintingsData } from "./data";
+import paintingsData from "./paintings.json";
 import engine from "./engine";
 
 configure({
