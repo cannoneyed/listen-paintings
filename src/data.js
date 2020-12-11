@@ -8,9 +8,15 @@ export const paintingsData = [
     sounds: [
       {
         file: "wheat.mp3",
+        position: [0.3, 0.65],
+        radius: 0.6,
+        color: "coral",
       },
       {
         file: "crow.mp3",
+        position: [0.8, 0.4],
+        radius: 0.5,
+        color: "coral",
       },
     ],
   },
@@ -23,12 +29,22 @@ export const paintingsData = [
     sounds: [
       {
         file: "geese.mp3",
+        position: [0.85, 0.65],
+        radius: 0.4,
+        color: "coral",
       },
       {
         file: "humming.wav",
+        position: [0.5, 0.25],
+        radius: 0.3,
+        color: "coral",
       },
       {
         file: "rowing.mp3",
+        position: [0.34, 0.55],
+        radius: 0.3,
+        color: "coral",
+        volume: -12,
       },
     ],
   },

@@ -12,7 +12,11 @@ configure({
   enforceActions: "never",
 });
 
-const painting = paintingsData[2];
+const params = Object.fromEntries(new URLSearchParams(window.location.search));
+const whichPainting = params.painting;
+const painting =
+  paintingsData.find((p) => p.key === whichPainting) ?? paintingsData[1];
+
 engine.setPainting(painting);
 
 ReactDOM.render(

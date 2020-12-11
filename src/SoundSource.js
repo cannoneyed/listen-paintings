@@ -11,7 +11,12 @@ const MIN_OPACITY = 0.5;
 const MIN_SIZE = 80;
 const DEFAULT_SIZE = 100;
 const MAX_SIZE = 120;
-const DEFUALT_RIPPLE_MULTIPLE = 1.25;
+const DEFAULT_RIPPLE_MULTIPLE = 1.1;
+const RIPPLE_EXTENT = 120;
+
+function amplify(gain) {
+  return 1 - Math.pow(1 - gain, 20);
+}
 
 function SoundSource({ sound }) {
   const [xPercent, yPercent] = sound.position;
@@ -38,8 +43,9 @@ function SoundSource({ sound }) {
       soundSource.style.marginLeft = `${-size / 2}px`;
       soundSource.style.marginTop = `${-size / 2}px`;
 
-      const add = rippleGain * 1000;
-      const rippleSize = size * DEFUALT_RIPPLE_MULTIPLE + add;
+      const eased = amplify(rippleGain);
+      const add = eased * RIPPLE_EXTENT;
+      const rippleSize = size * DEFAULT_RIPPLE_MULTIPLE + add;
 
       ripple.style.opacity = opacity;
       ripple.style.width = `${rippleSize}px`;
@@ -64,10 +70,10 @@ function SoundSource({ sound }) {
   };
 
   const rippleStyle = {
-    width: `${DEFAULT_SIZE * DEFUALT_RIPPLE_MULTIPLE}px`,
-    height: `${DEFAULT_SIZE * DEFUALT_RIPPLE_MULTIPLE}px`,
-    marginLeft: `${-(DEFAULT_SIZE * DEFUALT_RIPPLE_MULTIPLE) / 2}px`,
-    marginTop: `${-(DEFAULT_SIZE * DEFUALT_RIPPLE_MULTIPLE) / 2}px`,
+    width: `${DEFAULT_SIZE * DEFAULT_RIPPLE_MULTIPLE}px`,
+    height: `${DEFAULT_SIZE * DEFAULT_RIPPLE_MULTIPLE}px`,
+    marginLeft: `${-(DEFAULT_SIZE * DEFAULT_RIPPLE_MULTIPLE) / 2}px`,
+    marginTop: `${-(DEFAULT_SIZE * DEFAULT_RIPPLE_MULTIPLE) / 2}px`,
     left: `${xPercent * 100}%`,
     top: `${yPercent * 100}%`,
     opacity: 0,

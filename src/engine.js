@@ -61,18 +61,46 @@ class Engine {
         return;
       }
       const url = `${process.env.PUBLIC_URL}/${key}/${file}`;
+
       const player = new Tone.Player(url, () => {
         console.log("loaded", file);
         this.loadedSounds.set(file, true);
-      }).toDestination();
 
-      const meter = new Tone.Meter(0.8);
-      player.connect(meter);
-      this.meters.set(file, meter);
+        // Compute the RMS for the data
+        const buffer = player.buffer.getChannelData(0);
+        const FRAME_SIZE = 2048;
+        let maxRms = 0;
+        let totalSum = 0;
+        for (let i = 0; i < buffer.length; i += FRAME_SIZE) {
+          let sum = 0;
+          const end = Math.min(buffer.length, i + FRAME_SIZE);
+          for (let j = i; j < end; j++) {
+            sum += buffer[j] ** 2;
+            totalSum += buffer[j] ** 2;
+          }
+          const rms = Math.sqrt((1 / FRAME_SIZE) * sum);
+          maxRms = Math.max(rms, maxRms);
+        }
+        const totalRms = Math.sqrt((1 / buffer.length) * totalSum);
+        const avgDecibel = 20 * (Math.log(totalRms) / Math.log(10));
+        const maxDecibel = 20 * (Math.log(maxRms) / Math.log(10));
+        console.log(
+          `avg: ${avgDecibel.toFixed(2)}db, max: ${maxDecibel.toFixed(2)}db`
+        );
+      });
 
       this.players.set(file, player);
       player.loop = true;
-      player.volume.value = DEFAULT_DECIBELS;
+
+      const adjustVolume = entry.volume === undefined ? 0 : entry.volume;
+      const volume = new Tone.Volume(
+        DEFAULT_DECIBELS + adjustVolume
+      ).toDestination();
+      player.connect(volume);
+
+      const meter = new Tone.Meter(0.1);
+      volume.connect(meter);
+      this.meters.set(file, meter);
 
       this.loadedSounds.set(file, false);
     });
